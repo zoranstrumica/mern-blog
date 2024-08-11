@@ -8,12 +8,15 @@ import {
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
-import { FaMoon } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaMoon, FaSun } from "react-icons/fa"; //dodadeno FaSun
+import { useSelector, useDispatch } from "react-redux"; //dodadeno useDispatch
+import { toggleTheme } from "../redux/theme/themeSlice"; //dodadeno
 
 export default function Header() {
   const path = useLocation().pathname;
+  const dispatch = useDispatch(); //dodadeno
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme); //dodadeno
   return (
     <Navbar className="border-b-2">
       <Link
@@ -37,8 +40,13 @@ export default function Header() {
         <IoIosSearch />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
-          <FaMoon />
+        <Button
+          className="w-12 h-10 hidden sm:inline"
+          color="gray"
+          pill
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme === "light" ? <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
           <Dropdown
