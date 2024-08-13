@@ -1,4 +1,4 @@
-import { Table, Button, Modal } from "flowbite-react";
+import { Modal, Table, Button } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -10,7 +10,6 @@ export default function DashPosts() {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  console.log(userPosts);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -18,7 +17,7 @@ export default function DashPosts() {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
-          if (data.posts < 9) {
+          if (data.posts.length < 9) {
             setShowMore(false);
           }
         }
@@ -77,9 +76,9 @@ export default function DashPosts() {
         <>
           <Table hoverable className="shadow-md">
             <Table.Head>
-              <Table.HeadCell>Date Updated</Table.HeadCell>
-              <Table.HeadCell>Post Image</Table.HeadCell>
-              <Table.HeadCell>Post Title</Table.HeadCell>
+              <Table.HeadCell>Date updated</Table.HeadCell>
+              <Table.HeadCell>Post image</Table.HeadCell>
+              <Table.HeadCell>Post title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
               <Table.HeadCell>
@@ -143,7 +142,7 @@ export default function DashPosts() {
           )}
         </>
       ) : (
-        <p>You have no posts yet</p>
+        <p>You have no posts yet!</p>
       )}
       <Modal
         show={showModal}

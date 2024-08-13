@@ -1,16 +1,16 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import {
-  getStorage,
-  uploadBytesResumable,
-  ref,
   getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase";
+import { useEffect, useState } from "react";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -47,7 +47,7 @@ export default function UpdatePost() {
     }
   }, [postId]);
 
-  const handleUploadImage = async () => {
+  const handleUpdloadImage = async () => {
     try {
       if (!file) {
         setImageUploadError("Please select an image");
@@ -55,10 +55,9 @@ export default function UpdatePost() {
       }
       setImageUploadError(null);
       const storage = getStorage(app);
-      const fileName = new Date().getTime() + "_" + file.name; // Поправка
+      const fileName = new Date().getTime() + "-" + file.name;
       const storageRef = ref(storage, fileName);
       const uploadTask = uploadBytesResumable(storageRef, file);
-
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -84,7 +83,6 @@ export default function UpdatePost() {
       console.log(error);
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -112,10 +110,9 @@ export default function UpdatePost() {
       setPublishError("Something went wrong");
     }
   };
-
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
-      <h1 className="text-center text-3xl my-7 font-semibold">Update a post</h1>
+      <h1 className="text-center text-3xl my-7 font-semibold">Update post</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <TextInput
@@ -152,7 +149,7 @@ export default function UpdatePost() {
             gradientDuoTone="purpleToBlue"
             size="sm"
             outline
-            onClick={handleUploadImage}
+            onClick={handleUpdloadImage}
             disabled={imageUploadProgress}
           >
             {imageUploadProgress ? (
