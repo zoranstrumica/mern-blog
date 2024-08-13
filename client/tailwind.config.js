@@ -12,5 +12,6 @@ module.exports = {
   },
   plugins: [
     flowbite.plugin(), // Додај го Flowbite React plugin
+    require("tailwind-scrollbar"),
   ],
 };
