@@ -1,17 +1,12 @@
-const flowbite = require("flowbite-react/tailwind");
-
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    flowbite.content(), // Додај го Flowbite React content path
+    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {},
   },
-  plugins: [
-    flowbite.plugin(), // Додај го Flowbite React plugin
-    require("tailwind-scrollbar"),
-  ],
+  plugins: [require("flowbite/plugin"), require("tailwind-scrollbar")],
 };
