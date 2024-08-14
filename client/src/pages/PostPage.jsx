@@ -33,6 +33,7 @@ export default function PostPage() {
     };
     fetchPost();
   }, [postSlug]);
+
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
